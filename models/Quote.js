@@ -23,4 +23,4 @@ const quoteSchema = new Schema({
   },
 })
 
-module.export = model("Quote", quoteSchema)
+module.exports = model("Quote", quoteSchema)

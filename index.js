@@ -1,14 +1,19 @@
 const colors = require("colors")
-const { ApolloServer } = require("apollo-server")
+const { ApolloServer, PubSub } = require("apollo-server")
 const mongoose = require("mongoose")
 
 const typeDefs = require("./graphql/typeDefs")
 const resolvers = require("./graphql/resolvers")
 const { MONGODB } = require("./config.js")
 
+const pubsub = new PubSub()
+
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  //forewarding request body to the context
+  //  ie third argument
+  context: ({ req }) => ({ req, pubsub }),
 })
 
 mongoose
