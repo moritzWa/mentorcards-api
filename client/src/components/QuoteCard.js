@@ -21,9 +21,9 @@ function QuoteCard({
           src="https://www.skmurphy.com/wp-content/uploads/2017/11/kkNavalRavikant110222-e1530507117593.jpg"
         />
         <p className="quote-text">
-          <bold>“</bold>
+          <b>“</b>
           {body}
-          <bold>”</bold>
+          <b>”</b>
         </p>
         <div
           style={{ display: "flex", alignContent: "center", height: "23px" }}

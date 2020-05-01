@@ -12,6 +12,12 @@
   font-style: italic;
 }
 
+b {
+  font-style: normal;
+  font-size: 25px;
+  padding: 3px;
+}
+
 .ui.card > .content a:not(.ui),
 .ui.cards > .card > .content a:not(.ui) {
   margin-left: 10px;
