@@ -1,13 +1,16 @@
-import React, { useState } from "react"
+import React, { useContext, useState } from "react"
 import { Button, Form } from "semantic-ui-react"
 import { useMutation } from "@apollo/react-hooks"
 import gql from "graphql-tag"
 
+import { AuthContext } from "../context/auth"
 import { useForm } from "../util/hooks"
 
 function Register(props) {
+  const context = useContext(AuthContext)
   const [errors, setErrors] = useState({})
 
+  // initialize form funtionaly through hook
   const { onChange, onSubmit, values } = useForm(registerUser, {
     username: "",
     email: "",
@@ -15,19 +18,24 @@ function Register(props) {
     confirmPassword: "",
   })
 
+  //https://www.apollographql.com/docs/react/data/mutations/
   const [addUser, { loading }] = useMutation(REGISTER_USER, {
-    //proxy is not needed
-    update(_, result) {
+    //update cach after mutation
+    // -- by pulling out data as userData
+    update(_, { data: { register: userData } }) {
+      context.login(userData)
       props.history.push("/")
     },
     onError(err) {
       //pulling out error from apollo response object https://www.apollographql.com/docs/apollo-server/data/errors/
       setErrors(err.graphQLErrors[0].extensions.exception.errors)
     },
+    //passing variables for mutaiton
     //username: values.username
     variables: values,
   })
 
+  // prioritize mounting of addUser function
   function registerUser() {
     addUser()
   }
