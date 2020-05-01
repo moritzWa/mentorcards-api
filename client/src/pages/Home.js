@@ -6,10 +6,15 @@ import { Grid } from "semantic-ui-react"
 import QuoteCard from "../components/QuoteCard"
 
 function Home() {
-  const {
-    loading,
-    data: { getQuotes: quotes },
-  } = useQuery(FETCH_QUOTES_QUERY)
+  const { loading, data } = useQuery(FETCH_QUOTES_QUERY)
+
+  let quotes = []
+
+  if (data) {
+    const { getQuotes } = data
+    quotes = getQuotes
+    console.log(quotes)
+  }
 
   return (
     <Grid columns={3}>

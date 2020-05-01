@@ -17,15 +17,22 @@ function QuoteCard({
     <Card fluid>
       <Card.Content>
         <Image
-          floated="right"
-          size="mini"
-          src="https://react.semantic-ui.com/images/avatar/large/molly.png"
+          wrapped
+          src="https://www.skmurphy.com/wp-content/uploads/2017/11/kkNavalRavikant110222-e1530507117593.jpg"
         />
-        <Card.Header>{username}</Card.Header>
-        <Card.Meta as={Link} to={`/quotes/${id}`}>
-          {moment(createdAt).fromNow(true)}
-        </Card.Meta>
-        <Card.Description>{body}</Card.Description>
+        <p className="quote-text">
+          <bold>“</bold>
+          {body}
+          <bold>”</bold>
+        </p>
+        <div
+          style={{ display: "flex", alignContent: "center", height: "23px" }}
+        >
+          <h5>added by {username}</h5>
+          <Card.Meta as={Link} to={`/quotes/${id}`}>
+            {moment(createdAt).fromNow(true)}
+          </Card.Meta>
+        </div>
       </Card.Content>
       <Card.Content extra>
         <Button as="div" labelPosition="right" onClick={likeQuote}>
