@@ -22,3 +22,8 @@ b {
 .ui.cards > .card > .content a:not(.ui) {
   margin-left: 10px;
 }
+
+.form-container {
+  width: 400px;
+  margin: auto;
+}
