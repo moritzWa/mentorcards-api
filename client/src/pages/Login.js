@@ -17,7 +17,6 @@ function Login(props) {
   })
 
   const [loginUser, { loading }] = useMutation(LOGIN_USER, {
-    //we dont need proxy
     update(_, { data: { login: userData } }) {
       context.login(userData)
       props.history.push("/")

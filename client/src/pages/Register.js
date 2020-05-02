@@ -20,8 +20,8 @@ function Register(props) {
 
   //https://www.apollographql.com/docs/react/data/mutations/
   const [addUser, { loading }] = useMutation(REGISTER_USER, {
-    //update cach after mutation
-    // -- by pulling out data as userData
+    //update triggered through onsubmit
+    // -- pulling out data as userData
     update(_, { data: { register: userData } }) {
       context.login(userData)
       props.history.push("/")

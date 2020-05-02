@@ -1,18 +1,16 @@
-import React from "react"
+import React, { useContext } from "react"
 import { Button, Card, Icon, Label, Image } from "semantic-ui-react"
 import { Link } from "react-router-dom"
 import moment from "moment"
 
+import { AuthContext } from "../context/auth"
+import LikeButton from "./LikeButton"
+
 function QuoteCard({
   quote: { body, createdAt, id, username, likeCount, commentCount, likes },
 }) {
-  function likeQuote() {
-    console.log("Like quote!!")
-  }
+  const { user } = useContext(AuthContext)
 
-  function commentOnQuote() {
-    console.log("Comment on quote!!")
-  }
   return (
     <Card fluid>
       <Card.Content>
@@ -35,15 +33,8 @@ function QuoteCard({
         </div>
       </Card.Content>
       <Card.Content extra>
-        <Button as="div" labelPosition="right" onClick={likeQuote}>
-          <Button color="teal" basic>
-            <Icon name="heart" />
-          </Button>
-          <Label basic color="teal" pointing="left">
-            {likeCount}
-          </Label>
-        </Button>
-        <Button as="div" labelPosition="right" onClick={commentOnQuote}>
+        <LikeButton user={user} quote={{ id, likes, likeCount }} />
+        <Button labelPosition="right" as={Link} to={`/quote/${id}`}>
           <Button color="blue" basic>
             <Icon name="comments" />
           </Button>
@@ -51,6 +42,16 @@ function QuoteCard({
             {commentCount}
           </Label>
         </Button>
+        {user && user.username === username && (
+          <Button
+            as="div"
+            color="red"
+            floated="right"
+            onClick={() => console.log("Delete quote")}
+          >
+            <Icon name="trash" style={{ margin: 0 }} />
+          </Button>
+        )}
       </Card.Content>
     </Card>
   )
