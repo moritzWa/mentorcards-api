@@ -5,6 +5,7 @@ import moment from "moment"
 
 import { AuthContext } from "../context/auth"
 import LikeButton from "./LikeButton"
+import DeleteButton from "./DeleteButton"
 
 function QuoteCard({
   quote: { body, createdAt, id, username, likeCount, commentCount, likes },
@@ -34,7 +35,7 @@ function QuoteCard({
       </Card.Content>
       <Card.Content extra>
         <LikeButton user={user} quote={{ id, likes, likeCount }} />
-        <Button labelPosition="right" as={Link} to={`/quote/${id}`}>
+        <Button labelPosition="right" as={Link} to={`/quotes/${id}`}>
           <Button color="blue" basic>
             <Icon name="comments" />
           </Button>
@@ -42,16 +43,7 @@ function QuoteCard({
             {commentCount}
           </Label>
         </Button>
-        {user && user.username === username && (
-          <Button
-            as="div"
-            color="red"
-            floated="right"
-            onClick={() => console.log("Delete quote")}
-          >
-            <Icon name="trash" style={{ margin: 0 }} />
-          </Button>
-        )}
+        {user && user.username === username && <DeleteButton quoteId={id} />}
       </Card.Content>
     </Card>
   )

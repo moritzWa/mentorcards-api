@@ -15,7 +15,7 @@ function QuoteForm() {
   const [createQuote, { error }] = useMutation(CREATE_QUOTE_MUTATION, {
     variables: values,
     update(proxy, result) {
-      //data = storage of responses
+      //data = storage of responses /local cach state
       const data = proxy.readQuery({
         query: FETCH_QUOTES_QUERY,
       })
@@ -28,7 +28,7 @@ function QuoteForm() {
       values.body = ""
     },
     onError(err) {
-      //console.log(err)
+      console.log(err)
     },
   })
 
