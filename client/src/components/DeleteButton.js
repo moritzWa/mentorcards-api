@@ -4,7 +4,7 @@ import { useMutation } from "@apollo/react-hooks"
 import { Button, Confirm, Icon } from "semantic-ui-react"
 
 import { FETCH_QUOTES_QUERY } from "../util/graphql"
-import MyPopup from "../util/MyPopup"
+import ToolTipWrap from "../util/ToolTipWrap"
 
 function DeleteButton({ quoteId, commentId, callback }) {
   const [confirmOpen, setConfirmOpen] = useState(false)
@@ -32,7 +32,7 @@ function DeleteButton({ quoteId, commentId, callback }) {
   })
   return (
     <>
-      <MyPopup content={commentId ? "Delete comment" : "Delete quote"}>
+      <ToolTipWrap content={commentId ? "Delete comment" : "Delete quote"}>
         <Button
           as="div"
           color="red"
@@ -41,7 +41,7 @@ function DeleteButton({ quoteId, commentId, callback }) {
         >
           <Icon name="trash" style={{ margin: 0 }} />
         </Button>
-      </MyPopup>
+      </ToolTipWrap>
       <Confirm
         open={confirmOpen}
         onCancel={() => setConfirmOpen(false)}

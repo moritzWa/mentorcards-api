@@ -6,7 +6,7 @@ import moment from "moment"
 import { AuthContext } from "../context/auth"
 import LikeButton from "./LikeButton"
 import DeleteButton from "./DeleteButton"
-import MyPopup from "../util/MyPopup"
+import ToolTipWrap from "../util/ToolTipWrap"
 
 function QuoteCard({
   quote: { body, createdAt, id, username, likeCount, commentCount, likes },
@@ -36,7 +36,7 @@ function QuoteCard({
       </Card.Content>
       <Card.Content extra>
         <LikeButton user={user} quote={{ id, likes, likeCount }} />
-        <MyPopup content="Comment on quote">
+        <ToolTipWrap content="Comment on quote">
           <Button labelPosition="right" as={Link} to={`/quote/${id}`}>
             <Button color="blue" basic>
               <Icon name="comments" />
@@ -45,7 +45,7 @@ function QuoteCard({
               {commentCount}
             </Label>
           </Button>
-        </MyPopup>
+        </ToolTipWrap>
 
         {user && user.username === username && <DeleteButton quoteId={id} />}
       </Card.Content>

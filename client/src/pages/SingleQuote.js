@@ -7,7 +7,7 @@ import { Button, Card, Grid, Form, Image, Icon, Label } from "semantic-ui-react"
 import { AuthContext } from "../context/auth"
 import LikeButton from "../components/LikeButton"
 import DeleteButton from "../components/DeleteButton"
-import MyPopup from "../util/MyPopup"
+import ToolTipWrap from "../util/ToolTipWrap"
 
 function SingleQuote(props) {
   const quoteId = props.match.params.quoteId
@@ -76,7 +76,7 @@ function SingleQuote(props) {
               <hr />
               <Card.Content extra>
                 <LikeButton user={user} quote={{ id, likeCount, likes }} />
-                <MyPopup content="Comment on quote">
+                <ToolTipWrap content="Comment on quote">
                   <Button
                     as="div"
                     labelPosition="right"
@@ -89,7 +89,7 @@ function SingleQuote(props) {
                       {commentCount}
                     </Label>
                   </Button>
-                </MyPopup>
+                </ToolTipWrap>
 
                 {user && user.username === username && (
                   <DeleteButton quoteId={id} callback={deleteQuoteCallback} />
