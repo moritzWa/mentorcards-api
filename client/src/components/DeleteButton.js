@@ -5,23 +5,28 @@ import { Button, Confirm, Icon } from "semantic-ui-react"
 
 import { FETCH_QUOTES_QUERY } from "../util/graphql"
 
-function DeleteButton({ quoteId, callback }) {
+function DeleteButton({ quoteId, commentId, callback }) {
   const [confirmOpen, setConfirmOpen] = useState(false)
 
-  const [deleteQuote] = useMutation(DELETE_QUOTE_MUTATION, {
+  //on comment or quote?
+  const mutation = commentId ? DELETE_COMMENT_MUTATION : DELETE_QUOTE_MUTATION
+
+  const [deleteQuoteOrMutation] = useMutation(mutation, {
     update(proxy) {
       setConfirmOpen(false)
-      const data = proxy.readQuery({
-        query: FETCH_QUOTES_QUERY,
-      })
-      data.getQuotes = data.getQuotes.filter((p) => p.id !== quoteId)
-      proxy.writeQuery({ query: FETCH_QUOTES_QUERY, data })
-
+      if (!commentId) {
+        const data = proxy.readQuery({
+          query: FETCH_QUOTES_QUERY,
+        })
+        data.getQuotes = data.getQuotes.filter((p) => p.id !== quoteId)
+        proxy.writeQuery({ query: FETCH_QUOTES_QUERY, data })
+      }
       // reroute to homepage
       if (callback) callback()
     },
     variables: {
       quoteId,
+      commentId,
     },
   })
   return (
@@ -37,7 +42,7 @@ function DeleteButton({ quoteId, callback }) {
       <Confirm
         open={confirmOpen}
         onCancel={() => setConfirmOpen(false)}
-        onConfirm={deleteQuote}
+        onConfirm={deleteQuoteOrMutation}
       />
     </>
   )
@@ -46,6 +51,20 @@ function DeleteButton({ quoteId, callback }) {
 const DELETE_QUOTE_MUTATION = gql`
   mutation deleteQuote($quoteId: ID!) {
     deleteQuote(quoteId: $quoteId)
+  }
+`
+const DELETE_COMMENT_MUTATION = gql`
+  mutation deleteComment($quoteId: ID!, $commentId: ID!) {
+    deleteComment(quoteId: $quoteId, commentId: $commentId) {
+      id
+      comments {
+        id
+        username
+        createdAt
+        body
+      }
+      commentCount
+    }
   }
 `
 
