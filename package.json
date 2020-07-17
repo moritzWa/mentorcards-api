@@ -1,14 +1,14 @@
 {
   "name": "mentorcards-api",
   "version": "1.0.0",
-  "description": "",
+  "description": "A place to exchange, discuss and internalize your favorite quotes",
   "main": "index.js",
   "scripts": {
     "server": "node index",
     "start": "node index"
   },
   "keywords": [],
-  "author": "",
+  "author": "Moritz Wallawitsch",
   "license": "ISC",
   "dependencies": {
     "apollo-server": "^2.12.0",

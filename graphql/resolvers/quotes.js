@@ -70,10 +70,10 @@ module.exports = {
       const quote = await Quote.findById(quoteId)
       if (quote) {
         if (quote.likes.find((like) => like.username === username)) {
-          // Quote already likes, unlike it
+          // Quote already liked = unlike it
           quote.likes = quote.likes.filter((like) => like.username !== username)
         } else {
-          // Not liked, like quote
+          // Not liked = like quote
           quote.likes.push({
             username,
             createdAt: new Date().toISOString(),
