@@ -29,11 +29,26 @@ module.exports = gql`
     username: String!
     createdAt: String!
   }
+  type Mentor {
+    id: ID!
+    mentorname: String!
+    imageUrl: String!
+    aboutText: String!
+    profileUrl: String!
+    createdAt: String!
+    username: String!
+  }
   input RegisterInput {
     username: String!
     password: String!
     confirmPassword: String!
     email: String!
+  }
+  input MentorInput {
+    mentorname: String!
+    imageUrl: String!
+    aboutText: String!
+    profileUrl: String!
   }
   type Query {
     getQuotes: [Quote]
@@ -44,6 +59,7 @@ module.exports = gql`
     login(username: String!, password: String!): User!
     createQuote(body: String!): Quote!
     deleteQuote(quoteId: ID!): String!
+    createMentor(mentorInput: MentorInput): Mentor
     createComment(quoteId: String!, body: String!): Quote!
     # quoteId to check if quote still exists
     deleteComment(quoteId: ID!, commentId: ID!): Quote!

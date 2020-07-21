@@ -1,4 +1,5 @@
 const quotesResolvers = require("./quotes")
+const mentorsResolvers = require("./mentors")
 const usersResolvers = require("./users")
 const commentsResolvers = require("./comments")
 
@@ -14,6 +15,7 @@ module.exports = {
     ...usersResolvers.Mutation,
     ...quotesResolvers.Mutation,
     ...commentsResolvers.Mutation,
+    ...mentorsResolvers.Mutation,
   },
   Subscription: {
     ...quotesResolvers.Subscription,
