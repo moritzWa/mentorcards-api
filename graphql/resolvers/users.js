@@ -37,8 +37,8 @@ module.exports = {
 
       const match = await bcrypt.compare(password, user.password)
       if (!match) {
-        errors.general = "Wrong crendetials"
-        throw new UserInputError("Wrong crendetials", { errors })
+        errors.general = "Wrong password"
+        throw new UserInputError("Wrong password", { errors })
       }
 
       const token = generateToken(user)
@@ -49,9 +49,10 @@ module.exports = {
         token,
       }
     },
+
     async register(
       _,
-      { registerInput: { username, email, password, confirmPassword } }
+      { registerInput: { username, email, password, confirmPassword } } //,contex ,info
     ) {
       // Validate user data
       const { valid, errors } = validateRegisterInput(
@@ -63,7 +64,7 @@ module.exports = {
       if (!valid) {
         throw new UserInputError("Errors", { errors })
       }
-      // TODO: Make sure user doesnt already exist
+
       const user = await User.findOne({ username })
       if (user) {
         throw new UserInputError("Username is taken", {

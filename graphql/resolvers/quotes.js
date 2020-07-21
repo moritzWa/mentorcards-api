@@ -8,6 +8,7 @@ module.exports = {
     async getQuotes() {
       try {
         const quotes = await Quote.find().sort({ createdAt: -1 })
+        console.log("getquotes", quotes)
         return quotes
       } catch (err) {
         throw new Error(err)
