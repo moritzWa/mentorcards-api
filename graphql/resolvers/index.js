@@ -10,6 +10,7 @@ module.exports = {
   },
   Query: {
     ...quotesResolvers.Query,
+    ...mentorsResolvers.Query,
   },
   Mutation: {
     ...usersResolvers.Mutation,

@@ -4,6 +4,30 @@ const checkAuth = require("../../util/check-auth")
 const Mentor = require("../../models/Mentor")
 
 module.exports = {
+  Query: {
+    async getMentors() {
+      console.log("route hit")
+      try {
+        const mentors = await Mentor.find().sort({ createdAt: -1 })
+        console.log("getMentors", mentors)
+        return mentors
+      } catch (err) {
+        throw new Error(err)
+      }
+    },
+    async getMentor(_, { quoteId }) {
+      try {
+        const quote = await Mentor.findById(quoteId)
+        if (quote) {
+          return quote
+        } else {
+          throw new Error("Mentor not found")
+        }
+      } catch (err) {
+        throw new Error(err)
+      }
+    },
+  },
   Mutation: {
     async createMentor(
       _,
@@ -14,7 +38,7 @@ module.exports = {
       const user = checkAuth(context)
 
       if (mentorname.trim() === "") {
-        throw new Error("Quote body must not be empty")
+        throw new Error("Mentor body must not be empty")
       }
 
       const newMentor = new Mentor({

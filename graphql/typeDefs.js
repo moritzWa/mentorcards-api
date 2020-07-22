@@ -23,14 +23,14 @@ module.exports = gql`
     username: String!
   }
   type User {
-    id: ID!
+    id: ID
     email: String!
     token: String!
     username: String!
     createdAt: String!
   }
   type Mentor {
-    id: ID!
+    id: ID
     mentorname: String!
     imageUrl: String!
     aboutText: String!
@@ -53,13 +53,15 @@ module.exports = gql`
   type Query {
     getQuotes: [Quote]
     getQuote(quoteId: ID!): Quote
+    getMentors: [Mentor]
+    getMentor(mentorId: ID!): Mentor
   }
   type Mutation {
     register(registerInput: RegisterInput): User!
     login(username: String!, password: String!): User!
     createQuote(body: String!): Quote!
     deleteQuote(quoteId: ID!): String!
-    createMentor(mentorInput: MentorInput): Mentor
+    createMentor(mentorInput: MentorInput): Mentor!
     createComment(quoteId: String!, body: String!): Quote!
     # quoteId to check if quote still exists
     deleteComment(quoteId: ID!, commentId: ID!): Quote!
@@ -70,3 +72,5 @@ module.exports = gql`
     newQuote: Quote!
   }
 `
+
+//changed non-nullable Mentor id to nullable because of bug: https://github.com/apollographql/apollo-client/issues/4180
