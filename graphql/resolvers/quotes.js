@@ -28,7 +28,7 @@ module.exports = {
     },
   },
   Mutation: {
-    async createQuote(_, { body }, context) {
+    async createQuote(_, { body, mentor }, context) {
       const user = checkAuth(context)
 
       if (body.trim() === "") {
@@ -39,9 +39,10 @@ module.exports = {
 
       const newQuote = new Quote({
         body,
-        user: user.id,
+        mentor,
         username: user.username,
         createdAt: new Date().toISOString(),
+        user: user.id,
       })
 
       const quote = await newQuote.save()

@@ -2,6 +2,10 @@ const { model, Schema } = require("mongoose")
 
 const quoteSchema = new Schema({
   body: String,
+  mentor: {
+    type: Schema.Types.ObjectId,
+    ref: "mentors",
+  },
   username: String,
   createdAt: String,
   comments: [
