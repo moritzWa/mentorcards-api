@@ -35,6 +35,8 @@ module.exports = {
         throw new Error("Quote body must not be empty")
       }
 
+      body.replace(/['"]+/g, "")
+
       const newQuote = new Quote({
         body,
         user: user.id,
