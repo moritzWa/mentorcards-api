@@ -1,6 +1,7 @@
 const colors = require("colors")
-const { ApolloServer, PubSub } = require("apollo-server")
 const mongoose = require("mongoose")
+
+const { ApolloServer, PubSub } = require("apollo-server")
 const dotenv = require("dotenv")
 
 const typeDefs = require("./graphql/typeDefs")

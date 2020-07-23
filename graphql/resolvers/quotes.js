@@ -7,7 +7,10 @@ module.exports = {
   Query: {
     async getQuotes() {
       try {
-        const quotes = await Quote.find().sort({ createdAt: -1 })
+        const quotes = await Quote.find()
+          .sort({ createdAt: -1 })
+          .populate("mentorRef")
+
         console.log("getquotes", quotes)
         return quotes
       } catch (err) {
@@ -28,7 +31,7 @@ module.exports = {
     },
   },
   Mutation: {
-    async createQuote(_, { body, mentor }, context) {
+    async createQuote(_, { body, mentorRef }, context) {
       const user = checkAuth(context)
 
       if (body.trim() === "") {
@@ -39,7 +42,7 @@ module.exports = {
 
       const newQuote = new Quote({
         body,
-        mentor,
+        mentorRef,
         username: user.username,
         createdAt: new Date().toISOString(),
         user: user.id,

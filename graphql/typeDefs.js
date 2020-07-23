@@ -4,7 +4,7 @@ module.exports = gql`
   type Quote {
     id: ID!
     body: String!
-    mentor: Mentor!
+    mentorRef: Mentor
     createdAt: String!
     username: String!
     comments: [Comment]!
@@ -60,7 +60,7 @@ module.exports = gql`
   type Mutation {
     register(registerInput: RegisterInput): User!
     login(username: String!, password: String!): User!
-    createQuote(body: String!, mentor: String!): Quote!
+    createQuote(body: String!, mentorRef: String!): Quote!
     deleteQuote(quoteId: ID!): String!
     createMentor(mentorInput: MentorInput): Mentor!
     createComment(quoteId: String!, body: String!): Quote!
